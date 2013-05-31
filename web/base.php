@@ -5,7 +5,7 @@ class base {
 	var $action;
 	var $parameteres;
 	var $key;
-	var $page_status=false;
+	var $page_status = false;
 	/*
 	 * Function for dispatching
 	 * created 30-5-2013
@@ -22,53 +22,70 @@ class base {
 
 	function UrlDeep() {
 		$exploded_url = $this -> MapUrl();
-		try{
-			$count=count($exploded_url);
-			if($count<3){
+		try {
+			$count = count($exploded_url);
+			if ($count < 3) {
 				trigger_error("Please check the URl");
-				
-			}else{
+
+			} else {
 				p($exploded_url);
-				$this->controller=$exploded_url[0];
-				$this->action=$exploded_url[1];
+				$this -> controller = $exploded_url[0];
+				$this -> action = $exploded_url[1];
 				unset($exploded_url[0]);
 				unset($exploded_url[1]);
-				$action=array();
-				if($exploded_url[2]!='page'){
-					$i=1;
+				$action = array();
+				if ($exploded_url[2] != 'page') {
+					$i = 1;
 					foreach ($exploded_url as $key => $value) {
-						if($i==count($exploded_url)-1){
-							break;	
-						}else{
-							$this->parameteres[]=$value;
+						if ($i == count($exploded_url)) {
+							break;
+						} else {
+							$this -> parameteres[] = $value;
 						}
 						$i++;
 					}
-					
-				}else{
-					$this->page=$exploded_url[3];
-					$this->page_status=TRUE;
+
+				} else {
+					p($exploded_url);
+					if (count($exploded_url) < 3) {
+						trigger_error("Please check your URL Page Paramters");
+						die();
+					} else {
+						if (!is_numeric($exploded_url[3])) {
+							trigger_error("Page Number Not defined");
+							die();
+						}
+					}
+
+					$this -> page = $exploded_url[3];
+					$this -> page_status = TRUE;
 					unset($exploded_url[2]);
 					unset($exploded_url[3]);
-								$i=0;
+					$i = 0;
 					foreach ($exploded_url as $key => $value) {
-						if($i==count($exploded_url)-1){
-							break;	
-						}else{
-							
-							$this->parameteres[]=$value;
+						if ($i == count($exploded_url)) {
+							break;
+						} else {
+
+							$this -> parameteres[] = $value;
 						}
 						$i++;
 					}
-					
+
 				}
-				
+
+				foreach ($exploded_url as $key => $value) {
+					if (next($exploded_url) === false) {
+						$this -> key = $value;
+					}
+				}
+
 				p($this);
 			}
-			
-		}catch(exception $e){
+
+		} catch(exception $e) {
 			trigger_error("Please check the URL");
-			
+
 		}
 
 	}
