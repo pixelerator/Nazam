@@ -31,22 +31,14 @@ if (!defined('EXTENSION')) {
 	
 	define('EXTENSION','.php');
 }
-UrlDeep();
-function UrlDeep(){
-	$exploded_url=MapUrl();
-	p($exploded_url);
-	
-}
-/*
- * Function MapUrl
- * This Function is used to get the URL Patterns easiliy
- * Created date 30/5/2013
- */
-function MapUrl() {
-	$keywords = preg_split('/' . BASEFOLDER . '\//', $_SERVER['REQUEST_URI']);
-	//p($keywords);
-	return explode('/', $keywords[1]);
-}
+
+
+
+try {
 require_once(CURRENT.SEP.APPFOLDER.SEP.'base'.EXTENSION);
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
+
 
 ?>
