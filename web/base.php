@@ -25,9 +25,20 @@ class base {
 		try {
 			$count = count($exploded_url);
 			if ($count < 3) {
+
 				trigger_error("Please check the URl");
 
 			} else {
+				if (empty($exploded_url[count($exploded_url) - 1])) {
+					trigger_error("Please check the URl");
+					die("Key Doesnot exist");
+
+				}
+				if (strpos($exploded_url[count($exploded_url) - 1], '.html') == false) {
+					trigger_error("Please check the URl");
+					die("Extension Required");
+				}
+
 				p($exploded_url);
 				$this -> controller = $exploded_url[0];
 				$this -> action = $exploded_url[1];
@@ -79,8 +90,14 @@ class base {
 						$this -> key = $value;
 					}
 				}
+				try {
+					require_once (CURRENT . SEP . APPFOLDER . SEP . 'core' . EXTENSION);
+					
+				} catch (Exception $e) {
+					echo 'Caught exception: ', $e -> getMessage(), "\n";
+				}
 
-				p($this);
+				
 			}
 
 		} catch(exception $e) {
