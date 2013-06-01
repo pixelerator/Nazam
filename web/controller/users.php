@@ -1,5 +1,5 @@
 <?php
-class Users{
+class Users extends Controller{
 	
 	function index($param,$param2,$key='default.html'){
 		echo $param;
