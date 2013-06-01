@@ -1,13 +1,17 @@
 <?php
-class Users extends Controller{
+class Users extends Controller {
+	var $test=1;
 	
-	function index($param,$param2,$key='default.html'){
-		echo $param;
-		echo $param2;
-		echo $key;
-		
+
+	function includer($parameters,$action,$local_controller,$link_function=null) {
+			try{
+				require_once (CURRENT . SEP . APPFOLDER . SEP . 'functions' . SEP .$local_controller.SEP.$action. EXTENSION);
+				
+				call_user_func_array($action,$parameters);
+			}catch(Exception $e){
+				echo 'Caught exception: ', $e -> getMessage(), "\n";
+			}
 	}
 
 }
-
- ?>
+?>
