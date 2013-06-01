@@ -6,6 +6,7 @@ class base {
 	var $parameteres;
 	var $key;
 	var $page_status = false;
+	var $model;
 	/*
 	 * Function for dispatching
 	 * created 30-5-2013
@@ -41,6 +42,7 @@ class base {
 
 				p($exploded_url);
 				$this -> controller = $exploded_url[0];
+				
 				$this -> action = $exploded_url[1];
 				unset($exploded_url[0]);
 				unset($exploded_url[1]);
